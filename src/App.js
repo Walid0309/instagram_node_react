@@ -1,26 +1,34 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect } from 'react'
+import './App.css'
+import Home from './component/Home'
+import Signup from './component/Signup'
+import Signin from './component/Signin'
+import Profile from './component/Profile'
+import CreatePost from './component/CreatePost'
+import { GlobalProvider } from './context/GlobalState'
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  useHistory
+} from 'react-router-dom'
 
-function App() {
+function App () {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='App'>
+      <GlobalProvider>
+        <Router>
+          <Switch>
+            <Route exact path='/' component={Home} />
+            <Route exact path='/signup' component={Signup} />
+            <Route exact path='/signin' component={Signin} />
+            <Route exact path='/profile' component={Profile} />
+            <Route exact path='/create' component={CreatePost} />
+          </Switch>
+        </Router>
+      </GlobalProvider>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App

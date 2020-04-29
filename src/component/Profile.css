@@ -1,0 +1,21 @@
+.wrapper_top_information{
+    display : flex; 
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    border-bottom: 1px solid grey;
+}
+
+.profile_picture{
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+}
+
+
+.feed_picture{
+    display:flex; 
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
