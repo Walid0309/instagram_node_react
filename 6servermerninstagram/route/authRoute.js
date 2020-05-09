@@ -12,10 +12,6 @@ dotenv.config({
 
 const { JWT_SECRET_KEY } = process.env
 
-router.get('/protected', requireLogin, (req, res) => {
-  res.send('ca marche')
-})
-
 router.post('/signup', (req, res) => {
   const { name, email, password } = req.body
   if (!name || !email || !password) {
@@ -52,7 +48,7 @@ router.post('/signup', (req, res) => {
     .catch(err => console.log(err, 'error when saved user'))
 })
 
-router.post('/signin', (req, res) => {
+router.post('/signin', (req, res, next) => {
   const { email, password } = req.body
   if (!email || !password) {
     res.status(404).json({
@@ -61,11 +57,12 @@ router.post('/signin', (req, res) => {
   }
   user
     .findOne({ email: email })
+    .select('-password')
     .then(savedUser => {
       if (savedUser) {
         const token = jwt.sign({ _id: savedUser._id }, JWT_SECRET_KEY)
-        let {name,email} = savedUser; 
-        res.status(200).json({name,email,token})
+        let { name, email, _id } = savedUser
+        res.status(200).json({ name, email, token, _id })
         bcrypt.compare(password, savedUser.password).then(goodPassword => {
           if (goodPassword) {
             res.status(200).json({

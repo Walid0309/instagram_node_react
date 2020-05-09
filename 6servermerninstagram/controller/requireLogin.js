@@ -10,7 +10,6 @@ const secret = process.env.JWT_SECRET_KEY
 
 module.exports = (req, res, next) => {
   const { authorization } = req.headers
-  console.log(authorization, 'authorization')
   if (!authorization) {
     res.status(401).json({
       error: 'you dont have headers authorization'

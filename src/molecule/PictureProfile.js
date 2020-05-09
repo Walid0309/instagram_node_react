@@ -1,9 +1,9 @@
 import React from 'react';
 
-function PictureProfile() {
+function PictureProfile({ title, body, img }) {
 	return (
 		<div>
-			<img src="images.jpg" alt="profile" />
+			<img src={img} alt="profile" style={{ width: '200px', height: '200px' }} />
 		</div>
 	);
 }

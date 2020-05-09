@@ -5,6 +5,7 @@ import Signup from './component/Signup'
 import Signin from './component/Signin'
 import Profile from './component/Profile'
 import CreatePost from './component/CreatePost'
+import UserProfile from './component/UserProfile'
 import { GlobalProvider } from './context/GlobalState'
 import {
   BrowserRouter as Router,
@@ -24,6 +25,7 @@ function App () {
             <Route exact path='/signin' component={Signin} />
             <Route exact path='/profile' component={Profile} />
             <Route exact path='/create' component={CreatePost} />
+            <Route exact path='/profile/:profileID' component={UserProfile} />
           </Switch>
         </Router>
       </GlobalProvider>
