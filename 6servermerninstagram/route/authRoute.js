@@ -13,8 +13,9 @@ dotenv.config({
 const { JWT_SECRET_KEY } = process.env
 
 router.post('/signup', (req, res) => {
-  const { name, email, password } = req.body
-  if (!name || !email || !password) {
+  const { name, email, password, pic } = req.body
+  console.log(pic, 'pic of signup')
+  if (!name || !email || !password || !pic) {
     res.status(404).json({
       error: 'please fill all field'
     })
@@ -31,7 +32,8 @@ router.post('/signup', (req, res) => {
             let User = new user({
               name,
               email,
-              password: hashed
+              password: hashed,
+              pic: pic
             })
             let myUser = new Promise((resolve, reject) => {
               resolve(User.save())
@@ -61,8 +63,10 @@ router.post('/signin', (req, res, next) => {
     .then(savedUser => {
       if (savedUser) {
         const token = jwt.sign({ _id: savedUser._id }, JWT_SECRET_KEY)
-        let { name, email, _id } = savedUser
-        res.status(200).json({ name, email, token, _id })
+        let { name, email, _id, followers, following, pic } = savedUser
+        res
+          .status(200)
+          .json({ name, email, token, _id, followers, following, pic })
         bcrypt.compare(password, savedUser.password).then(goodPassword => {
           if (goodPassword) {
             res.status(200).json({

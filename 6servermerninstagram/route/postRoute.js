@@ -20,6 +20,31 @@ router.get('/allPost', requireLogin, (req, res) => {
     })
 })
 
+router.get('/myPost', requireLogin, (req, res) => {
+  post
+    .find({ postedBy: req.user._id })
+    .populate('postedBy', '_id name')
+    .then(resp => {
+      console.log(resp, 'respon')
+      res.json({ resp })
+    })
+    .catch(err => console.log(err))
+})
+
+router.get('/getsubscriberspost', requireLogin, (req, res) => {
+  // get only profile which i follow
+  post
+    .find({ postedBy: { $in: req.user.following } })
+    .populate('postedBy', '_id name')
+    .populate('comments.postedBy', '_id name')
+    .then(allpost => {
+      // on specifie id name car on veut que ca. pas de password ni email.
+      res.status(200).json({
+        allpost
+      })
+    })
+})
+
 router.post('/createpost', requireLogin, (req, res) => {
   const { title, body, url } = req.body
   console.log(title, body, url, 'bla')
@@ -48,17 +73,6 @@ router.post('/createpost', requireLogin, (req, res) => {
     .catch(err => {
       res.status(404).json({ err })
     })
-})
-
-router.get('/myPost', requireLogin, (req, res) => {
-  post
-    .find({ postedBy: req.user._id })
-    .populate('postedBy', '_id name')
-    .then(resp => {
-      console.log(resp, 'respon')
-      res.json({ resp })
-    })
-    .catch(err => console.log(err))
 })
 
 router.put('/like', requireLogin, (req, res) => {

@@ -50,7 +50,12 @@ function Profile () {
       {console.log(profilePost, 'all post render')}
       {console.log(userData, 'userdata')}
       <div className='wrapper_top_information'>
-        <img src='images.jpg' alt='profile' className='profile_picture' />
+        <img
+          src={userData?.user?.pic}
+          alt='profile'
+          className='profile_picture'
+        />
+        <button>update profile picture</button>
         <div className='wrapper_name_follower'>
           <div>
             <h3>{profilePost[0]?.postedBy?.name}</h3>
@@ -62,6 +67,7 @@ function Profile () {
       </div>
       <div className='feed_picture'>
         {profilePost.map((e, index) => {
+          console.log(e, 'eeee')
           return (
             <PictureProfile
               key={index}

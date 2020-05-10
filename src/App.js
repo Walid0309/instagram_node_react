@@ -6,6 +6,7 @@ import Signin from './component/Signin'
 import Profile from './component/Profile'
 import CreatePost from './component/CreatePost'
 import UserProfile from './component/UserProfile'
+import SubscriberPost from './component/SubscriberPost'
 import { GlobalProvider } from './context/GlobalState'
 import {
   BrowserRouter as Router,
@@ -26,6 +27,7 @@ function App () {
             <Route exact path='/profile' component={Profile} />
             <Route exact path='/create' component={CreatePost} />
             <Route exact path='/profile/:profileID' component={UserProfile} />
+            <Route exact path='/followingpost' component={SubscriberPost} />
           </Switch>
         </Router>
       </GlobalProvider>
